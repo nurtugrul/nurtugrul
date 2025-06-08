@@ -1,0 +1,206 @@
+<!DOCTYPE html><html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nur & Tuğrul</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: black;
+      color: white;
+      overflow-x: hidden;
+      position: relative;
+    }
+    .center {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 2rem;
+      text-align: center;
+      z-index: 2;
+      position: relative;
+    }
+    input[type="password"] {
+      padding: 0.7rem 1rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    button {
+      padding: 0.7rem 2rem;
+      background: #ff6f91;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    #mainContent {
+      display: none;
+    }
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+    .gallery img {
+      max-width: 200px;
+      border-radius: 16px;
+      margin: 0.5rem;
+      box-shadow: 0 0 15px rgba(255,105,180,0.6);
+      border: 2px solid pink;
+    }
+    .note, .timeline, .spotify, .distance {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1.5rem;
+      margin: 2rem 0;
+      border-radius: 12px;
+      backdrop-filter: blur(5px);
+    }
+    audio {
+      display: none;
+    }
+    .hearts {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      animation: float 10s infinite ease-in;
+      opacity: 0.8;
+      font-size: 24px;
+      color: #ff69b4;
+    }
+    @keyframes float {
+      0% {
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        transform: translateY(-100vh) scale(0.5);
+        opacity: 0;
+      }
+    }
+    canvas {
+      max-width: 500px;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts" id="heartContainer"></div>  <audio id="loveSong" autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mp3">
+  </audio>  <div class="center" id="passwordScreen">
+    <h1>Nur & Tuğrul</h1>
+    <p>💖 Şifremizi gir;</p>
+    <input type="password" id="passwordInput" placeholder="Şifre">
+    <button onclick="checkPassword()">Giriş</button>
+    <p id="error" style="color: salmon; margin-top: 1rem;"></p>
+  </div>  <div id="mainContent">
+    <div class="center">
+      <h1>Nur & Tuğrul</h1>
+      <p>Dünyanın en güzel karısına,sevgilerimle. ♡</p>
+    </div><div class="center gallery">
+  <h2>👑 Karımın Güzelliği</h2>
+  <img src="https://i.hizliresim.com/9yrn4p1.png" alt="Nur1">
+  <img src="https://i.hizliresim.com/r3ubjxk.png" alt="Nur2">
+  <img src="https://i.hizliresim.com/2mk1za3.jpg" alt="Nur3">
+</div>
+
+<div class="center note">
+  <h2>💌 Aşk Notu</h2>
+  <p>Seninle her gün, yeniden doğmak gibi. Gülüşünde kaybolmak, sessizliğinde huzur bulmak... İyi ki varsın, iyi ki biziz ❤️</p>
+</div>
+
+<div class="center timeline">
+  <h2>📅 Özel Anılar</h2>
+  <ul style="list-style: none;">
+    <li>📍 15 Mayıs - Tanışma günü</li>
+    
+  </ul>
+</div>
+
+<div class="center distance">
+  <h2>📍 780 Kilometre Uzaklık</h2>
+  <p>Aramızda belki 780 kilometre var... Ama hissettiklerimiz kilometreleri anlamsız kılıyor. Her mesajda, her şarkıda, her konuşmamızda birbirimize biraz daha yakınız.
+  Bu mesafe, sadece seni ne kadar özlediğimi anlatıyor. Her kilometre, sana biraz daha fazla bağlanmam demek 💫🛤️</p>
+  <canvas id="distanceChart"></canvas>
+</div>
+
+<div class="center spotify">
+  <h2>🎵 Spotify'dan Bizim Şarkımız</h2>
+  <iframe style="border-radius:12px" src="https://open.spotify.com/track/0F7e5Ot8PrsdHBW0SmeXi7?si=yI7MItlfSV-ZYkSGfrebUQ&pi=A6wo9LhjRmaEr" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+</div>
+
+  </div>  <script>
+    function checkPassword() {
+      const input = document.getElementById("passwordInput").value;
+      const error = document.getElementById("error");
+      if(input === "1505") {
+        document.getElementById("passwordScreen").style.display = "none";
+        document.getElementById("mainContent").style.display = "block";
+        document.getElementById("loveSong").play();
+      } else {
+        error.innerText = "Yanlış şifre. Tekrar dene 💔";
+      }
+    }
+
+    function createHearts() {
+      const container = document.getElementById("heartContainer");
+      for(let i = 0; i < 20; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.top = Math.random() * 100 + "%";
+        heart.innerText = "❤️";
+        heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
+        container.appendChild(heart);
+      }
+    }
+
+    createHearts();
+
+    // Distance chart
+    const ctx = document.getElementById('distanceChart');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Başlangıç', '15 Mayıs', 'Bugün'],
+        datasets: [{
+          label: 'Özlem Seviyesi',
+          data: [100, 150, 780],
+          borderColor: '#ff6f91',
+          backgroundColor: 'rgba(255,105,180,0.2)',
+          fill: true,
+          tension: 0.4,
+          pointBackgroundColor: '#ff6f91'
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { labels: { color: 'white' } }
+        },
+        scales: {
+          x: { ticks: { color: 'white' }, grid: { color: '#444' } },
+          y: { ticks: { color: 'white' }, grid: { color: '#444' } }
+        }
+      }
+    });
+  </script></body>
+</html>
